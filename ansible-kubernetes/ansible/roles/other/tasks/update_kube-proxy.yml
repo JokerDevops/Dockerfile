@@ -1,0 +1,15 @@
+---
+- name: 备份 kube-proxy.service 文件
+  copy:
+    remote_src: yes
+    src: /etc/systemd/system/kube-proxy.service
+    dest: /usr/local/kube-proxy.service-{{ time }}.back
+- name: 将新配置的 kube-proxy.service 文件拷贝过去
+  template:
+    src: kube-proxy.service.j2
+    dest: /etc/systemd/system/kube-proxy.service
+- name: 重启启动 kube-proxy.service 加载新的配置
+  systemd:
+    name: kube-proxy
+    state: restarted
+    daemon_reload: yes

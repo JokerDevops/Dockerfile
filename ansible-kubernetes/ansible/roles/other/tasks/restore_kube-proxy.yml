@@ -1,0 +1,13 @@
+---
+- name: 将旧版本稳定配置恢复到当前配置
+  copy:
+    remote_src: yes
+    src: /usr/local/kube-proxy.service-{{ time }}.back
+    dest: /etc/systemd/system/kube-proxy.service
+- name: 删除旧版本副本
+  shell: rm -rf /usr/local/kube-proxy.service-{{ time }}.back
+- name: 重新加载配置，重启 kube-proxy
+  systemd:
+    name: kube-proxy 
+    state: restarted
+    daemon_reload: yes

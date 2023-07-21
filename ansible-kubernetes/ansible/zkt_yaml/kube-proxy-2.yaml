@@ -1,0 +1,8 @@
+- hosts: kube-node
+  remote_user: root
+  gather_facts: False
+  tasks:
+     #- shell: hostname&&apt-get install ntp -y&&systemctl start ntp&&systemctl status ntp|grep Active&&sysv-rc-conf ntp on&&timedatectl status|grep synchronized
+     - shell: hostname&&cp /root/kube-proxy.service /etc/systemd/system/&&cat /etc/systemd/system/kube-proxy.service&&systemctl daemon-reload&&systemctl restart kube-proxy
+       register: ps
+     - debug: var=ps.stdout_lines

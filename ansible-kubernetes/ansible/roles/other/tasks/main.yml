@@ -1,0 +1,7 @@
+---
+- name: update kube-proxy service
+  include: update_kube-proxy.yml
+  tags: update_kube-proxy
+- name: restore kube-proxy service
+  include: restore_kube-proxy.yml
+  tags: restore_kube-proxy

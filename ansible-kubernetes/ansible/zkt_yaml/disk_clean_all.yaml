@@ -1,0 +1,12 @@
+- hosts: kube-node
+  remote_user: root
+  gather_facts: False
+  tasks:
+     - shell: hostname&&for i in $(find /home/ -name "*log*" -type f|grep -v `date +"%Y%m%d"`|grep `date +"%Y"`);do ls $i;done
+     - shell: hostname&&for i in $(find /home/ -name "*log*" -type f|grep -v `date +"%Y%m%d"`|grep `date +"%Y"`);do cat /dev/null > $i;done
+     - shell: hostname&&for i in $(find /home/ -name "*log*" -type f|grep -v `date +"%Y%m%d"`|grep `date +"%Y"`);do rm $i;done
+     - shell: hostname&&for i in $(find /logs/ -name "*log*" -type f|grep -v `date +"%Y%m%d"`|grep `date +"%Y"`);do ls $i;done
+     - shell: hostname&&for i in $(find /logs/ -name "*log*" -type f|grep -v `date +"%Y%m%d"`|grep `date +"%Y"`);do cat /dev/null > $i;done
+     - shell: hostname&&for i in $(find /logs/ -name "*log*" -type f|grep -v `date +"%Y%m%d"`|grep `date +"%Y"`);do rm $i;done
+       register: ps
+     - debug: var=ps.stdout_lines

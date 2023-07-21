@@ -1,0 +1,7 @@
+- hosts: kube-node
+  remote_user: root
+  gather_facts: False
+  tasks:
+     - shell: hostname&&df -h|grep /dev/vda1 &&du -sh /home/*
+       register: ps
+     - debug: var=ps.stdout_lines

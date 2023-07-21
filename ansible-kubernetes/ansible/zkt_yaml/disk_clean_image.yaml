@@ -1,0 +1,7 @@
+- hosts: kube-node
+  remote_user: root
+  gather_facts: False
+  tasks:
+     - shell: hostname&&docker system prune -af
+       register: ps
+     - debug: var=ps.stdout_lines

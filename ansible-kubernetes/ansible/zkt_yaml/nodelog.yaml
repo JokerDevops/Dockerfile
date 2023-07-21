@@ -1,0 +1,10 @@
+- hosts: kube-node
+  remote_user: root
+  gather_facts: False
+  tasks:
+     - shell: hostname&&ls /home
+     #- shell: hostname&&ls /logs&&rm -rf /logs/eyehome*;rm -rf /logs/wwwhome*
+     #- shell: hostname&&rm -rf /home/www*
+     #- shell: hostname&&ls /home/node*&&rm -rf /home/nodeLogs_*&&ls /logs
+       register: ps
+     - debug: var=ps.stdout_lines
